@@ -2,10 +2,10 @@
 <html>
 <head lang="en">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Claroty CTD 4 STIG</title>
+<title>United States Government Configuration Baseline for Claroty CTD 5.x</title>
 </head>
 <body>
-	<br><br><div style="text-align: center; font-size: x-large; font-weight:bold">Claroty CTD 4 STIG</div>
+	<br><br><div style="text-align: center; font-size: x-large; font-weight:bold">United States Government Configuration Baseline for Claroty CTD 5.x</div>
 <br><br><style type="text/css">
 		table
 		{
@@ -357,9 +357,13 @@ where <i>APPROVED_BANNER</i> is the approved banner for your environment.
 <br /><br />
 To enable, add or edit <tt>banner-message-text</tt> to
 
-<tt>/etc/gdm3/greeter.dconf-defaults</tt>. For example:
+<tt>/etc/dconf/db/gdm.d/00-security-settings</tt>. For example:
 <pre>[org/gnome/login-screen]
 banner-message-text='<i>APPROVED_BANNER</i>'</pre>
+Once the setting has been added, add a lock to
+<tt>/etc/dconf/db/gdm.d/locks/00-security-settings-lock</tt> to prevent user modification.
+For example:
+<pre>/org/gnome/login-screen/banner-message-text</pre>
 
 After the settings have been set, run <tt>dconf update</tt>.
 When entering a warning banner that spans several lines, remember
@@ -441,12 +445,12 @@ of the information system but does not want to logout because of the temporary n
   <td>N/A</td>
   <td>Check that vlock is installed to allow session locking</td>
   <td xml:lang="en-US">
-The Claroty CTD 4 operating system must have vlock installed to allow for session locking.
+The Claroty CTD 5.x operating system must have vlock installed to allow for session locking.
 
 
-The <code>vlock</code> package can be installed with the following command:
+The <code>kbd</code> package can be installed with the following command:
 <pre>
-$ apt-get install vlock</pre>
+$ apt-get install kbd</pre>
   </td>
   <td xml:lang="en-US">
 A session lock is a temporary action taken when a user stops work and
@@ -515,7 +519,8 @@ Logging of remote access methods must be implemented to help identify cyber
 attacks and ensure ongoing compliance with remote access policies are being
 audited and upheld. An examples of a remote access method is the use of the
 Remote Desktop Protocol (RDP) from an external, non-organization controlled
-network. The <tt>/etc/rsyslog.d/50-default.conf</tt> file should contain a match for the following
+network. The <tt>/etc/rsyslog.conf</tt> or
+<tt>/etc/rsyslog.d/*.conf</tt> file should contain a match for the following
 selectors: <tt>auth.*</tt>, <tt>authpriv.*</tt>, and <tt>daemon.*</tt>. If
 not, use the following as an example configuration:
 <code>
@@ -539,9 +544,9 @@ surrounding the use of remote access methods.
 Limit the ciphers to those algorithms which are FIPS-approved.
 The following line in <tt>/etc/ssh/sshd_config</tt>
 demonstrates use of FIPS-approved ciphers:
-<pre>Ciphers aes256-ctr,aes256-gcm@openssh.com,aes128-ctr,aes128-gcm@openssh.com</pre>
-If this line does not contain these ciphers in exact order,
-is commented out, or is missing, this is a finding.
+<pre>Ciphers aes256-ctr,aes192-ctr,aes128-ctr</pre>
+This rule ensures that there are configured ciphers mentioned
+above (or their subset), keeping the given order of algorithms.
   </td>
   <td xml:lang="en-US">
 Unapproved mechanisms that are used for authentication to the cryptographic module are not verified and therefore
@@ -552,7 +557,7 @@ cryptographic modules.
 <br />
 FIPS 140-2 is the current standard for validating that mechanisms used to access cryptographic modules
 utilize authentication that meets industry and government requirements. For government systems, this allows
-Security Levels 1, 2, 3, or 4 for use on Claroty CTD 4.
+Security Levels 1, 2, 3, or 4 for use on Claroty CTD 5.x.
   </td>
   <td></td>
 </tr>
@@ -740,21 +745,17 @@ to use the <tt>augenrules</tt> program to read audit rules during daemon
 startup (the default), add the following line to a file with suffix
 <tt>.rules</tt> in the directory <tt>/etc/audit/rules.d</tt>:
 <pre>-a always,exit -F arch=b32 -S fremovexattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b32 -S fremovexattr -F auid=0 -F key=perm_mod</pre>
 <br /><br />
 If the system is 64 bit then also add the following line:
 <pre>-a always,exit -F arch=b64 -S fremovexattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b64 -S fremovexattr -F auid=0 -F key=perm_mod</pre>
 <br /><br />
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add the following line to
 <tt>/etc/audit/audit.rules</tt> file:
 <pre>-a always,exit -F arch=b32 -S fremovexattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b32 -S fremovexattr -F auid=0 -F key=perm_mod</pre>
 <br /><br />
 If the system is 64 bit then also add the following line:
 <pre>-a always,exit -F arch=b64 -S fremovexattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b64 -S fremovexattr -F auid=0 -F key=perm_mod</pre>
   </td>
   <td xml:lang="en-US">
 The changing of file permissions could indicate that a user is attempting to
@@ -775,18 +776,14 @@ to use the <tt>augenrules</tt> program to read audit rules during daemon
 startup (the default), add the following line to a file with suffix
 <tt>.rules</tt> in the directory <tt>/etc/audit/rules.d</tt>:
 <pre>-a always,exit -F arch=b32 -S fsetxattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b32 -S fsetxattr -F auid=0 -F key=perm_mod</pre>
 If the system is 64 bit then also add the following line:
 <pre>-a always,exit -F arch=b64 -S fsetxattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b64 -S fsetxattr -F auid=0 -F key=perm_mod</pre>
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add the following line to
 <tt>/etc/audit/audit.rules</tt> file:
 <pre>-a always,exit -F arch=b32 -S fsetxattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b32 -S fsetxattr -F auid=0 -F key=perm_mod</pre>
 If the system is 64 bit then also add the following line:
 <pre>-a always,exit -F arch=b64 -S fsetxattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b64 -S fsetxattr -F auid=0 -F key=perm_mod</pre>
   </td>
   <td xml:lang="en-US">
 The changing of file permissions could indicate that a user is attempting to
@@ -837,21 +834,17 @@ to use the <tt>augenrules</tt> program to read audit rules during daemon
 startup (the default), add the following line to a file with suffix
 <tt>.rules</tt> in the directory <tt>/etc/audit/rules.d</tt>:
 <pre>-a always,exit -F arch=b32 -S lremovexattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b32 -S lremovexattr -F auid=0 -F key=perm_mod</pre>
 <br /><br />
 If the system is 64 bit then also add the following line:
 <pre>-a always,exit -F arch=b64 -S lremovexattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b64 -S lremovexattr -F auid=0 -F key=perm_mod</pre>
 <br /><br />
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add the following line to
 <tt>/etc/audit/audit.rules</tt> file:
 <pre>-a always,exit -F arch=b32 -S lremovexattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b32 -S lremovexattr -F auid=0 -F key=perm_mod</pre>
 <br /><br />
 If the system is 64 bit then also add the following line:
 <pre>-a always,exit -F arch=b64 -S lremovexattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b64 -S lremovexattr -F auid=0 -F key=perm_mod</pre>
   </td>
   <td xml:lang="en-US">
 The changing of file permissions could indicate that a user is attempting to
@@ -872,18 +865,14 @@ to use the <tt>augenrules</tt> program to read audit rules during daemon
 startup (the default), add the following line to a file with suffix
 <tt>.rules</tt> in the directory <tt>/etc/audit/rules.d</tt>:
 <pre>-a always,exit -F arch=b32 -S lsetxattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b32 -S lsetxattr -F auid=0 -F key=perm_mod</pre>
 If the system is 64 bit then also add the following line:
 <pre>-a always,exit -F arch=b64 -S lsetxattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b64 -S lsetxattr -F auid=0 -F key=perm_mod</pre>
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add the following line to
 <tt>/etc/audit/audit.rules</tt> file:
 <pre>-a always,exit -F arch=b32 -S lsetxattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b32 -S lsetxattr -F auid=0 -F key=perm_mod</pre>
 If the system is 64 bit then also add the following line:
 <pre>-a always,exit -F arch=b64 -S lsetxattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b64 -S lsetxattr -F auid=0 -F key=perm_mod</pre>
   </td>
   <td xml:lang="en-US">
 The changing of file permissions could indicate that a user is attempting to
@@ -905,21 +894,17 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add the
 following line to a file with suffix <tt>.rules</tt> in the directory <tt>/etc/audit/rules.d</tt>:
 <pre>-a always,exit -F arch=b32 -S removexattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b32 -S removexattr -F auid=0 -F key=perm_mod</pre>
 <br /><br />
 If the system is 64 bit then also add the following line:
 <pre>-a always,exit -F arch=b64 -S removexattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b64 -S removexattr -F auid=0 -F key=perm_mod</pre>
 <br /><br />
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add the following line to
 <tt>/etc/audit/audit.rules</tt> file:
 <pre>-a always,exit -F arch=b32 -S removexattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b32 -S removexattr -F auid=0 -F key=perm_mod</pre>
 <br /><br />
 If the system is 64 bit then also add the following line:
 <pre>-a always,exit -F arch=b64 -S removexattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b64 -S removexattr -F auid=0 -F key=perm_mod</pre>
   </td>
   <td xml:lang="en-US">
 The changing of file permissions could indicate that a user is attempting to
@@ -940,18 +925,14 @@ to use the <tt>augenrules</tt> program to read audit rules during daemon
 startup (the default), add the following line to a file with suffix
 <tt>.rules</tt> in the directory <tt>/etc/audit/rules.d</tt>:
 <pre>-a always,exit -F arch=b32 -S setxattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b32 -S setxattr -F auid=0 -F key=perm_mod</pre>
 If the system is 64 bit then also add the following line:
 <pre>-a always,exit -F arch=b64 -S setxattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b64 -S setxattr -F auid=0 -F key=perm_mod</pre>
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add the following line to
 <tt>/etc/audit/audit.rules</tt> file:
 <pre>-a always,exit -F arch=b32 -S setxattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b32 -S setxattr -F auid=0 -F key=perm_mod</pre>
 If the system is 64 bit then also add the following line:
 <pre>-a always,exit -F arch=b64 -S setxattr -F auid&gt;=1000 -F auid!=unset -F key=perm_mod</pre>
-<pre>-a always,exit -F arch=b64 -S setxattr -F auid=0 -F key=perm_mod</pre>
   </td>
   <td xml:lang="en-US">
 The changing of file permissions could indicate that a user is attempting to
@@ -976,12 +957,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/chacl -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/chacl -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/chacl -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/chacl -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Without generating audit records that are specific to the security and
@@ -1008,12 +989,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/chcon -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/chcon -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/chcon -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/chcon -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1044,12 +1025,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/setfacl -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/setfacl -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/setfacl -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/setfacl -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Without generating audit records that are specific to the security and
@@ -1195,7 +1176,7 @@ malicious processes that attempt to delete log files to conceal their presence.
 To capture kernel module loading and unloading events, use the following line, setting ARCH to
 either b32 for 32-bit system, or having two lines for both b32 and b64 in case your system is 64-bit:
 
-<pre>-a always,exit -F arch=<i>ARCH</i> -S delete_module -F auid>=1000 -F auid!=unset -F key=modules</pre>
+<pre>-a always,exit -F arch=<i>ARCH</i> -S delete_module -F key=modules</pre>
 
 
 Place to add the line depends on a way <tt>auditd</tt> daemon is configured. If it is configured
@@ -1221,7 +1202,7 @@ to have an audit trail of modules that have been introduced into the kernel.
 To capture kernel module loading and unloading events, use the following line, setting ARCH to
 either b32 for 32-bit system, or having two lines for both b32 and b64 in case your system is 64-bit:
 
-<pre>-a always,exit -F arch=<i>ARCH</i> -S finit_module -F auid>=1000 -F auid!=unset -F key=modules</pre>
+<pre>-a always,exit -F arch=<i>ARCH</i> -S finit_module -F key=modules</pre>
 
 
 Place to add the line depends on a way <tt>auditd</tt> daemon is configured. If it is configured
@@ -1247,7 +1228,7 @@ to have an audit trail of modules that have been introduced into the kernel.
 To capture kernel module loading and unloading events, use the following line, setting ARCH to
 either b32 for 32-bit system, or having two lines for both b32 and b64 in case your system is 64-bit:
 
-<pre>-a always,exit -F arch=<i>ARCH</i> -S init_module -F auid>=1000 -F auid!=unset -F key=modules</pre>
+<pre>-a always,exit -F arch=<i>ARCH</i> -S init_module -F key=modules</pre>
 
 
 Place to add the line depends on a way <tt>auditd</tt> daemon is configured. If it is configured
@@ -1339,12 +1320,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/chage -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/chage -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/chage -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/chage -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1375,12 +1356,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/chsh -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/chsh -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/chsh -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/chsh -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1411,12 +1392,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/crontab -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/crontab -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/crontab -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/crontab -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1447,12 +1428,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/gpasswd -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/gpasswd -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/gpasswd -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/gpasswd -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1483,12 +1464,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/kmod -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/kmod -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/kmod -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/kmod -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Without generating audit records that are specific to the security and
@@ -1546,12 +1527,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/mount -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/mount -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/mount -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/mount -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1582,12 +1563,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/newgrp -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/newgrp -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/newgrp -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/newgrp -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1618,12 +1599,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/sbin/pam_timestamp_check -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/pam_timestamp_check -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/sbin/pam_timestamp_check -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/pam_timestamp_check -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1654,12 +1635,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/passwd -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/passwd -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/passwd -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/passwd -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1690,12 +1671,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/ssh-agent -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/ssh-agent -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/ssh-agent -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/ssh-agent -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Without generating audit records that are specific to the security and
@@ -1723,12 +1704,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/lib/openssh/ssh-keysign -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/libexec/openssh/ssh-keysign -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/lib/openssh/ssh-keysign -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/libexec/openssh/ssh-keysign -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1759,12 +1740,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/su -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/su -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/su -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/su -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1795,12 +1776,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/sudo -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/sudo -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/sudo -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/sudo -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1831,12 +1812,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/sudoedit -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/sudoedit -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/sudoedit -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/sudoedit -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1867,12 +1848,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/umount -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/umount -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/umount -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/umount -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1903,12 +1884,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/sbin/unix_update -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/unix_update -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/sbin/unix_update -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/unix_update -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -1939,12 +1920,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/sbin/usermod -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/usermod -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/sbin/usermod -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/sbin/usermod -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Misuse of privileged functions, either intentionally or unintentionally by
@@ -2172,12 +2153,8 @@ these events could serve as evidence of potential system compromise.
 To ensure all processes can be audited, even those which start
 prior to the audit daemon, add the argument <tt>audit=1</tt> to the default
 GRUB 2 command line for the Linux operating system.
-To ensure that <tt>audit=1</tt> is added as a kernel command line
-argument to newly installed kernels, add <tt>audit=1</tt> to the
-default Grub2 command line for Linux operating systems. Modify the line within
-<tt>/etc/default/grub</tt> as shown below:
-<pre>GRUB_CMDLINE_LINUX="... audit=1 ..."</pre>
-Run the following command to update command line for already installed kernels:<pre># update-grub</pre>
+Configure the default Grub2 kernel command line to contain audit=1 as follows:
+<pre># grub2-editenv - set "$(grub2-editenv - list | grep kernelopts) audit=1"</pre>
   </td>
   <td xml:lang="en-US">
 Each process on the system carries an "auditable" flag which indicates whether
@@ -2479,12 +2456,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/sbin/apparmor_parser -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/sbin/apparmor_parser -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/sbin/apparmor_parser -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/sbin/apparmor_parser -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Without generating audit records that are specific to the security and
@@ -2530,9 +2507,12 @@ VPN, proxy capability). This does not apply to authentication for the
 purpose of configuring the device itself (management).
 
 
-Add or update the following line in <tt>/etc/pam.d/common-auth</tt>,
-placing it above any lines containing <tt>pam_unix.so</tt>:
-<pre>auth    [success=2 default=ignore] pam_pkcs11.so </pre>
+Check that the <tt>pam_pkcs11.so</tt> option is configured in the
+<tt>etc/pam.d/common-auth</tt> file with the following command:
+
+<pre># grep pam_pkcs11.so /etc/pam.d/common-auth
+
+auth sufficient pam_pkcs11.so</pre>
 
 
 For general information about enabling smart card authentication, consult
@@ -2540,7 +2520,7 @@ the documentation at:
 
 <ul>
 <li><b>
-    <a xmlns='http://www.w3.org/1999/xhtml' href='https://pages.ubuntu.com/rs/066-EOV-335/images/SmartCardLogin_WhitePapaer_04.03.20.pdf'>https://pages.ubuntu.com/rs/066-EOV-335/images/SmartCardLogin_WhitePapaer_04.03.20.pdf</a></b></li>
+    <a xmlns='http://www.w3.org/1999/xhtml' href='https://www.suse.com/c/configuring-smart-card-authentication-suse-linux-enterprise/'>https://www.suse.com/c/configuring-smart-card-authentication-suse-linux-enterprise/</a></b></li>
 </ul>
   </td>
   <td xml:lang="en-US">
@@ -2591,7 +2571,7 @@ To configure the number of retry prompts that are permitted per-session:
 
 Edit the <tt>pam_pwquality.so</tt> statement in
 
-<tt>/etc/pam.d/common-password</tt> to show
+<tt>/etc/pam.d/system-auth</tt> to show
 
 
 <tt>retry=<tt>3</tt></tt>, or a lower value if site
@@ -2715,10 +2695,12 @@ Note that passwords which are changed on compromised systems will still be compr
 Configure the number or rounds for the password hashing algorithm. This can be
 accomplished by using the <tt>rounds</tt> option for the <tt>pam_unix</tt> PAM module.
 <br /><br />
-In file <tt>/etc/pam.d/common-password</tt> append <tt>rounds=<tt>100000</tt></tt>
+In file <tt>/etc/pam.d/password-auth</tt> append <tt>rounds=<tt>100000</tt></tt>
 to the <tt>pam_unix.so</tt> entry, as shown below:
 
-<pre>password [success=1 default=ignore] pam_unix.so <i>...existing_options...</i> rounds=<tt>100000</tt></pre>
+<pre>password sufficient pam_unix.so <i>...existing_options...</i> rounds=<tt>100000</tt></pre>
+
+The system's default number of rounds is 5000.
   </td>
   <td xml:lang="en-US">
 Using a higher number of rounds makes password cracking attacks more difficult.
@@ -2826,22 +2808,10 @@ protection enabled to protect boot-time settings.
 Since plaintext passwords are a security risk, generate a hash for the password
 by running the following command:
 
-<pre># grub2-mkpasswd-pbkdf2</pre>
+<pre># grub2-setpassword</pre>
 
 When prompted, enter the password that was selected.
 <br /><br />
-
-Using the hash from the output, modify the <tt>/etc/grub.d/40_custom</tt>
-file with the following content:
-<pre>set superusers="boot"
-password_pbkdf2 boot grub.pbkdf2.sha512.VeryLongString
-</pre>
-NOTE: the bootloader superuser account and password MUST differ from the
-root account and password.
-Once the superuser password has been added,
-update the
-<tt>grub.cfg</tt> file by running:
-<pre>update-grub </pre>
   </td>
   <td xml:lang="en-US">
 Password protection on the boot loader configuration ensures
@@ -2862,22 +2832,10 @@ protection enabled to protect boot-time settings.
 Since plaintext passwords are a security risk, generate a hash for the password
 by running the following command:
 
-<pre># grub2-mkpasswd-pbkdf2</pre>
+<pre># grub2-setpassword</pre>
 
 When prompted, enter the password that was selected.
 <br /><br />
-
-Using the hash from the output, modify the <tt>/etc/grub.d/40_custom</tt>
-file with the following content:
-<pre>set superusers="boot"
-password_pbkdf2 boot grub.pbkdf2.sha512.VeryLongString
-</pre>
-NOTE: the bootloader superuser account and password MUST differ from the
-root account and password.
-Once the superuser password has been added,
-update the
-<tt>grub.cfg</tt> file by running:
-<pre>update-grub </pre>
   </td>
   <td xml:lang="en-US">
 Password protection on the boot loader configuration ensures
@@ -2973,9 +2931,9 @@ appropriate access protections.
 Configure the operating system to implement multifactor authentication by
 installing the required package with the following command:
 
-The <code>libpam-pkcs11</code> package can be installed with the following command:
+The <code>openssl-pkcs11</code> package can be installed with the following command:
 <pre>
-$ apt-get install libpam-pkcs11</pre>
+$ apt-get install openssl-pkcs11</pre>
   </td>
   <td xml:lang="en-US">
 Using an authentication device, such as a CAC or token that is separate from
@@ -3176,9 +3134,9 @@ on login or disallow access to the server.
 Limit the MACs to those hash algorithms which are FIPS-approved.
 The following line in <tt>/etc/ssh/sshd_config</tt>
 demonstrates use of FIPS-approved MACs:
-<pre>MACs hmac-sha2-512,hmac-sha2-512-etm@openssh.com,hmac-sha2-256,hmac-sha2-256-etm@openssh.com</pre>
-If this line does not contain these MACs in exact order,
-is commented out, or is missing, this is a finding.
+<pre>MACs hmac-sha2-512,hmac-sha2-256</pre>
+This rule ensures that there are configured MACs mentioned
+above (or their subset), keeping the given order of algorithms.
   </td>
   <td xml:lang="en-US">
 FIPS-approved cryptographic hash functions are required to be used.
@@ -3287,9 +3245,10 @@ The <tt>TMOUT</tt>
 
 setting in a file loaded by <tt>/etc/profile</tt>, e.g.
 <tt>/etc/profile.d/tmout.sh</tt> should read as follows:
-<pre>TMOUT=<tt>15_min</tt></pre>
-readonly TMOUT
-export TMOUT
+<pre>typeset -xr TMOUT=<tt>15_min</tt></pre>
+or
+<pre>declare -xr TMOUT=<tt>15_min</tt></pre>
+Using the <code>typeset</code> keyword is preferred for wider compatibility with ksh and other shells.
   </td>
   <td xml:lang="en-US">
 Terminating an idle session within a short time period reduces
@@ -3344,7 +3303,7 @@ information, such as account numbers, social security numbers, and credit
 card numbers.
   </td>
   <td xml:lang="en-US">
-The Claroty CTD 4 must generate error messages that provide information
+The Claroty CTD 5.x must generate error messages that provide information
 necessary for corrective actions without revealing information that could
 be exploited by adversaries.
   </td>
@@ -3356,7 +3315,7 @@ be exploited by adversaries.
   <td>Verify Group Who Owns /var/log Directory</td>
   <td xml:lang="en-US">
  To properly set the group owner of <code>/var/log</code>, run the command:
-<pre>$ sudo chgrp syslog /var/log</pre>
+<pre>$ sudo chgrp root /var/log</pre>
 
   </td>
   <td xml:lang="en-US">
@@ -3449,8 +3408,8 @@ the system and should only be accessed by authorized personnel.
   <td>Use Only FIPS 140-2 Validated Key Exchange Algorithms</td>
   <td xml:lang="en-US">
 Limit the key exchange algorithms to those  which are FIPS-approved.
-Add or modify the following line in <tt>/etc/ssh/sshd_config</tt>
-<pre>KexAlgorithms ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256</pre>
+Add or modify the following line in <tt></tt>
+<pre></pre>
 This rule ensures that only the key exchange algorithms mentioned
 above (or their subset) are configured for use, keeping the given
 order of algorithms.
@@ -3468,11 +3427,11 @@ of the strongest algorithm available to secure the SSH connection.
   <td>N/A</td>
   <td>Verify that audit tools are owned by root</td>
   <td xml:lang="en-US">
-The Claroty CTD 4 operating system audit tools must have the proper
+The Claroty CTD 5.x operating system audit tools must have the proper
 ownership configured to protected against unauthorized access.
 
 Verify it by running the following command:
-<pre>$ stat -c "%n %U" /sbin/auditctl /sbin/aureport /sbin/ausearch /sbin/autrace /sbin/auditd /sbin/augenrules /sbin/audisp-syslog /sbin/audisp-remote /sbin/audispd-zos-remote
+<pre>$ stat -c "%n %U" /sbin/auditctl /sbin/aureport /sbin/ausearch /sbin/autrace /sbin/auditd /sbin/audispd /sbin/augenrules
 
 /sbin/auditctl root
 
@@ -3484,13 +3443,9 @@ Verify it by running the following command:
 
 /sbin/auditd root
 
+/sbin/audispd root
+
 /sbin/augenrules root
-
-/sbin/audisp-syslog root
-
-/sbin/audisp-remote root
-
-/sbin/audispd-zos-remote root
 
 </pre>
 
@@ -3515,11 +3470,11 @@ regarding the access to audit tools.
   <td>N/A</td>
   <td>Verify that audit tools Have Mode 0755 or less</td>
   <td xml:lang="en-US">
-The Claroty CTD 4 operating system audit tools must have the proper
+The Claroty CTD 5.x operating system audit tools must have the proper
 permissions configured to protected against unauthorized access.
 
 Verify it by running the following command:
-<pre>$ stat -c "%n %a" /sbin/auditctl /sbin/aureport /sbin/ausearch /sbin/autrace /sbin/auditd /sbin/augenrules /sbin/audisp-syslog /sbin/audisp-remote /sbin/audispd-zos-remote
+<pre>$ stat -c "%n %a" /sbin/auditctl /sbin/aureport /sbin/ausearch /sbin/autrace /sbin/auditd /sbin/audispd /sbin/augenrules
 
 /sbin/auditctl 755
 
@@ -3531,13 +3486,9 @@ Verify it by running the following command:
 
 /sbin/auditd 755
 
+/sbin/audispd 755
+
 /sbin/augenrules 755
-
-/sbin/audisp-syslog 755
-
-/sbin/audisp-remote 755
-
-/sbin/audispd-zos-remote 755
 
 </pre>
 
@@ -3897,12 +3848,12 @@ more difficult by ensuring a larger search space.
   <td>N/A</td>
   <td>Disable KDump Kernel Crash Analyzer (kdump)</td>
   <td xml:lang="en-US">
-The <tt>kdump-tools</tt> service provides a kernel crash dump analyzer. It uses the <tt>kexec</tt>
+The <tt>kdump</tt> service provides a kernel crash dump analyzer. It uses the <tt>kexec</tt>
 system call to boot a secondary kernel ("capture" kernel) following a system
 crash, which can load information from the crashed kernel for analysis.
 
-The <code>kdump-tools</code> service can be disabled with the following command:
-<pre>$ sudo systemctl mask --now kdump-tools.service</pre>
+The <code>kdump</code> service can be disabled with the following command:
+<pre>$ sudo systemctl mask --now kdump.service</pre>
   </td>
   <td xml:lang="en-US">
 Kernel core dumps may contain the full contents of system memory at the
@@ -3982,9 +3933,8 @@ Deactivating wireless network interfaces should prevent normal usage of the wire
 capability.
 <br /><br />
 
-Verify that there are no wireless interfaces configured on the system
-with the following command:
-<pre>$ ls -L -d /sys/class/net/*/wireless | xargs dirname | xargs basename -a</pre>
+Configure the system to disable all wireless network interfaces with the following command:
+<pre>$ sudo nmcli radio all off</pre>
   </td>
   <td xml:lang="en-US">
 The use of wireless networking can introduce many different attack vectors into
@@ -4107,6 +4057,10 @@ Ensure that the file <tt>/etc/security/faillock.conf</tt> contains the following
 <tt>deny = &lt;count&gt;</tt>
 Where count should be less than or equal to
 <tt>3</tt> and greater than 0.
+
+In order to avoid errors when manually editing these files, it is
+recommended to use the appropriate tools, such as <tt>authselect</tt> or <tt>authconfig</tt>,
+depending on the OS version.
   </td>
   <td xml:lang="en-US">
 By limiting the number of failed logon attempts, the risk of unauthorized system access via
@@ -4126,6 +4080,11 @@ period.
 
 Ensure that the file <tt>/etc/security/faillock.conf</tt> contains the following entry:
 <tt>fail_interval = &lt;interval-in-seconds&gt;</tt> where <tt>interval-in-seconds</tt> is <tt><tt>900</tt></tt> or greater.
+
+
+In order to avoid errors when manually editing these files, it is
+recommended to use the appropriate tools, such as <tt>authselect</tt> or <tt>authconfig</tt>,
+depending on the OS version.
   </td>
   <td xml:lang="en-US">
 By limiting the number of failed logon attempts the risk of unauthorized system
@@ -4188,7 +4147,7 @@ Limits are imposed by locking the account.
   <td>N/A</td>
   <td>Configure a Sufficiently Large Partition for Audit Logs</td>
   <td xml:lang="en-US">
-The Claroty CTD 4 operating system must allocate audit record storage
+The Claroty CTD 5.x operating system must allocate audit record storage
 capacity to store at least one weeks worth of audit records when audit
 records are not immediately sent to a central audit record storage
 facility.
@@ -4196,6 +4155,9 @@ facility.
 The partition size needed to capture a week's worth of audit records is
 based on the activity level of the system and the total storage capacity
 available.
+
+In normal circumstances, 10.0 GB of storage space for audit
+records will be sufficient.
 
 
 Determine which partition the audit records are being written to with the
@@ -4224,9 +4186,6 @@ systems with limited audit storage capacity.
   <td xml:lang="en-US">
 Configure the audispd plugin to off-load audit records onto a different
 system or media from the system being audited.
-
-First, set the <tt>active</tt> option in
-<pre>/etc/audisp/plugins.d/au-remote.conf</pre>
 
 Set the <tt>remote_server</tt> option in <pre>/etc/audit/audisp-remote.conf</pre>
 with an IP address or hostname of the system that the audispd plugin should
@@ -4382,9 +4341,9 @@ local time with an offset from UTC.
   <td xml:lang="en-US">
 At a minimum, AIDE should be configured to run a weekly scan.
 To implement a daily execution of AIDE at 4:05am using cron, add the following line to <tt>/etc/crontab</tt>:
-<pre>05 4 * * * root /usr/bin/aide --config /etc/aide/aide.conf --check</pre>
+<pre>05 4 * * * root /usr/bin/aide --check</pre>
 To implement a weekly execution of AIDE at 4:05am using cron, add the following line to <tt>/etc/crontab</tt>:
-<pre>05 4 * * 0 root /usr/bin/aide --config /etc/aide/aide.conf --check</pre>
+<pre>05 4 * * 0 root /usr/bin/aide --check</pre>
 AIDE can be executed periodically through other means; this is merely one example.
 The usage of cron's special time codes, such as  <tt>@daily</tt> and
 <tt>@weekly</tt> is acceptable.
@@ -4507,9 +4466,9 @@ is critical that the user re-authenticate.
   <td>Install the opensc Package For Multifactor Authentication</td>
   <td xml:lang="en-US">
 
-The <code>opensc-pkcs11</code> package can be installed with the following command:
+The <code>opensc</code> package can be installed with the following command:
 <pre>
-$ apt-get install opensc-pkcs11</pre>
+$ apt-get install opensc</pre>
   </td>
   <td xml:lang="en-US">
 Using an authentication device, such as a CAC or token that is separate from
@@ -4667,7 +4626,7 @@ potential to allow access to users who are no longer authorized
   <td>N/A</td>
   <td>Record Attempts to perform maintenance activities</td>
   <td xml:lang="en-US">
-The Claroty CTD 4 operating system must generate audit records for
+The Claroty CTD 5.x operating system must generate audit records for
 privileged activities, nonlocal maintenance, diagnostic sessions and
 other system-level access.
 
@@ -4760,7 +4719,7 @@ SSL/TLS certificates.
   <td>N/A</td>
   <td>Encrypt Partitions</td>
   <td xml:lang="en-US">
-Claroty CTD 4 natively supports partition encryption through the
+Claroty CTD 5.x natively supports partition encryption through the
 Linux Unified Key Setup-on-disk-format (LUKS) technology. The easiest way to
 encrypt a partition is during installation time.
 <br /><br />
@@ -4771,11 +4730,24 @@ decrypting the partition. The passphrase will subsequently need to be entered ma
 every time the system boots.
 
 <br /><br />
+For automated/unattended installations, it is possible to use Kickstart by adding
+the <tt>--encrypted</tt> and <tt>--passphrase=</tt> options to the definition of each partition to be
+encrypted. For example, the following line would encrypt the root partition:
+<pre>part / --fstype=ext4 --size=100 --onpart=hda1 --encrypted --passphrase=<i>PASSPHRASE</i></pre>
+Any <i>PASSPHRASE</i> is stored in the Kickstart in plaintext, and the Kickstart
+must then be protected accordingly.
+Omitting the <tt>--passphrase=</tt> option from the partition definition will cause the
+installer to pause and interactively ask for the passphrase during installation.
+<br /><br />
+By default, the <tt>Anaconda</tt> installer uses <tt>aes-xts-plain64</tt> cipher
+with a minimum <tt>512</tt> bit key size which should be compatible with FIPS enabled.
+
+<br /><br />
 Detailed information on encrypting partitions using LUKS or LUKS ciphers can be found on
-the Claroty CTD 4 Documentation web site:<br />
+the Claroty CTD 5.x Documentation web site:<br />
 
     
-    <a xmlns='http://www.w3.org/1999/xhtml' href='https://help.ubuntu.com/community/Full_Disk_Encryption_Howto_2019'>https://help.ubuntu.com/community/Full_Disk_Encryption_Howto_2019</a>
+    <a xmlns='http://www.w3.org/1999/xhtml' href='https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/encrypting-block-devices-using-luks_security-hardening'>https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/encrypting-block-devices-using-luks_security-hardening</a>
 .
   </td>
   <td xml:lang="en-US">
@@ -4906,11 +4878,10 @@ existing code in order to re-purpose it using return oriented programming
 <tt>apt_get</tt> should be configured to remove previous software components after
 new versions have been installed. To configure <tt>apt_get</tt> to remove the
 
-previous software components after updating, set the <tt>::Remove-Unused-Dependencies</tt> and
-<tt>::Remove-Unused-Kernel-Packages</tt>
+previous software components after updating, set the <tt>clean_requirements_on_remove</tt>
 
 
-to <tt>true</tt> in <tt>/etc/apt/apt.conf</tt>.
+to <tt>1</tt> in <tt>/etc/apt/apt.conf</tt>.
   </td>
   <td xml:lang="en-US">
 Previous versions of software components that are not removed from the information
@@ -4925,18 +4896,18 @@ system after updates have been installed may be exploited by some adversaries.
   <td xml:lang="en-US">
 Run the following command to generate a new database:
 
-<pre>$ sudo aideinit</pre>
+<pre>$ sudo /usr/bin/aide --init</pre>
 
 By default, the database will be written to the file
 
-<tt>/var/lib/aide/aide.db.new</tt>.
+<tt>/var/lib/aide/aide.db.new.gz</tt>.
 
 Storing the database, the configuration file <tt>/etc/aide.conf</tt>, and the binary
 <tt>/usr/bin/aide</tt>
 (or hashes of these files), in a secure location (such as on read-only media) provides additional assurance about their integrity.
 The newly-generated database can be installed as follows:
 
-<pre>$ sudo cp /var/lib/aide/aide.db.new /var/lib/aide/aide.db</pre>
+<pre>$ sudo cp /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz</pre>
 
 To initiate a manual check, run the following command:
 <pre>$ sudo /usr/bin/aide --check</pre>
@@ -5187,9 +5158,9 @@ to limit brute-force attacks on the system.
   <td>Install pam_pwquality Package</td>
   <td xml:lang="en-US">
 
-The <code>libpam-pwquality</code> package can be installed with the following command:
+The <code>libpwquality</code> package can be installed with the following command:
 <pre>
-$ apt-get install libpam-pwquality</pre>
+$ apt-get install libpwquality</pre>
   </td>
   <td xml:lang="en-US">
 Use of a complex password helps to increase the time and resources required
@@ -5273,7 +5244,8 @@ but does not have an assigned password, it may be possible to log
 into the account without authentication. Remove any instances of the
 <tt>nullok</tt> in
 
-<tt>/etc/pam.d/common-auth</tt> and <tt>/etc/pam.d/common-password</tt>
+<tt>/etc/pam.d/system-auth</tt> and
+<tt>/etc/pam.d/password-auth</tt>
 
 to prevent logins with empty passwords.
   </td>
@@ -5312,7 +5284,7 @@ empty passwords should never be used in operational environments.
   <td>N/A</td>
   <td>Enable rsyslog Service</td>
   <td xml:lang="en-US">
-The <tt>rsyslog</tt> service provides syslog-style logging by default on Claroty CTD 4.
+The <tt>rsyslog</tt> service provides syslog-style logging by default on Claroty CTD 5.x.
 
 The <code>rsyslog</code> service can be enabled with the following command:
 <pre>$ sudo systemctl enable rsyslog.service</pre>
@@ -5478,12 +5450,12 @@ If the <tt>auditd</tt> daemon is configured to use the <tt>augenrules</tt>
 program to read audit rules during daemon startup (the default), add
 a line of the following form to a file with suffix <tt>.rules</tt>
 in the directory <tt>/etc/audit/rules.d</tt>:
-<pre>-a always,exit -F path=/usr/bin/chfn -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/chfn -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
 
 If the <tt>auditd</tt> daemon is configured to use the <tt>auditctl</tt>
 utility to read audit rules during daemon startup, add a line of the
 following form to <tt>/etc/audit/audit.rules</tt>:
-<pre>-a always,exit -F path=/usr/bin/chfn -F perm=x -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
+<pre>-a always,exit -F path=/usr/bin/chfn -F auid&gt;=1000 -F auid!=unset -F key=privileged</pre>
   </td>
   <td xml:lang="en-US">
 Without generating audit records that are specific to the security and
@@ -5565,15 +5537,71 @@ enforcing connection rules of remote access applications on a variety of informa
 <tr>
   <td></td>
   <td>N/A</td>
-  <td>Configure and Run Claroty CTD 4 Backups</td>
+  <td>Claroty CTD must accept the DOD CAC or other PKI credential for identity management and personal authentication.</td>
   <td xml:lang="en-US">
-Claroty CTD 4 provides platform backup and restore functions under
-<tt>OS Configuration &gt; Backup &amp; Restore</tt>. The appliance should be
-configured to create and retain backups for recovery operations.
+Claroty CTD must support DoD CAC or other approved PKI credentials
+for identity management and personal authentication where required.
   </td>
   <td xml:lang="en-US">
-Current backups support restoration of a known-good CTD 4 configuration
-after operational failures, compromise, or administrator error.
+CAC and PKI credentials strengthen identity assurance and support
+enterprise authentication requirements.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Claroty CTD must alert the information system security officer (ISSO), information system security manager (ISSM), and other individuals designated by the local organization when events are detected that indicate a compromise or potential for compromise.</td>
+  <td xml:lang="en-US">
+Claroty CTD must alert the ISSO, ISSM, and other designated
+personnel when compromise-related events are detected.
+  </td>
+  <td xml:lang="en-US">
+Prompt security alerting helps organizations respond quickly to
+indicators of compromise or potential compromise.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Claroty CTD must allocate audit record storage retention length.</td>
+  <td xml:lang="en-US">
+Claroty CTD must allocate sufficient storage retention for audit
+records in accordance with organizational requirements.
+  </td>
+  <td xml:lang="en-US">
+Adequate audit storage retention helps ensure records remain
+available for monitoring, investigation, and compliance review.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Claroty CTD must only allow authorized local accounts as documented in the System Security Plan (SSP).</td>
+  <td xml:lang="en-US">
+Claroty CTD must permit only local accounts that are authorized and
+documented in the system security plan.
+  </td>
+  <td xml:lang="en-US">
+Restricting local accounts reduces unauthorized access paths and
+supports accountable administration.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Before establishing a network connection with a Network Time Protocol (NTP) server, Claroty CTD must authenticate using a bidirectional, cryptographically based authentication method that uses a FIPS-validated Advanced Encryption Standard (AES) cipher block algorithm to authenticate with the NTP server.</td>
+  <td xml:lang="en-US">
+Claroty CTD must authenticate to the configured NTP server using a
+bidirectional cryptographic method based on FIPS-validated AES
+before establishing the network connection.
+  </td>
+  <td xml:lang="en-US">
+Authenticated NTP reduces the risk of time spoofing and improves the
+trustworthiness of system timestamps.
   </td>
   <td></td>
 </tr>
@@ -5582,73 +5610,210 @@ after operational failures, compromise, or administrator error.
   <td>N/A</td>
   <td>Change Default Administrator Password</td>
   <td xml:lang="en-US">
-The default administrative password for Claroty CTD 4 must be changed from
-the vendor-supplied value to an organization-approved password.
+The default administrative password for Claroty CTD 5.x must be
+changed from the vendor-supplied value to an organization-approved
+password.
   </td>
   <td xml:lang="en-US">
-Default credentials are widely known and can provide attackers with immediate
-administrative access if they are not changed during initial deployment.
-  </td>
-  <td></td>
-</tr>
-<tr>
-  <td></td>
-  <td>N/A</td>
-  <td>Change the Claroty CTD 4 OS Password</td>
-  <td xml:lang="en-US">
-Claroty CTD 4 provides operating system credential management under
-<tt>OS Configuration &gt; Manage &gt; Credentials</tt>. The OS password should
-be changed to an organization-approved value.
-  </td>
-  <td xml:lang="en-US">
-Controlling the underlying platform password reduces the risk of
-unauthorized system-level access to the CTD 4 appliance.
+Default credentials are widely known and can provide attackers with
+immediate administrative access if they are not changed during
+deployment.
   </td>
   <td></td>
 </tr>
 <tr>
   <td></td>
   <td>N/A</td>
-  <td>Enable FIPS Mode in Claroty CTD 4</td>
+  <td>Claroty CTD must configure local password policies.</td>
   <td xml:lang="en-US">
-Claroty CTD 4 displays its FIPS operating state in the administrator menu.
-The platform should operate with <tt>Fips Mode: Enabled</tt>.
+Claroty CTD must enforce local password policies that meet
+organizational requirements for complexity and strength.
   </td>
   <td xml:lang="en-US">
-FIPS mode helps ensure the platform uses validated cryptographic functions
-appropriate for regulated and mission-oriented deployments.
-  </td>
-  <td></td>
-</tr>
-<tr>
-  <td></td>
-  <td>N/A</td>
-  <td>Configure an NTP Server for Claroty CTD 4</td>
-  <td xml:lang="en-US">
-Claroty CTD 4 provides time synchronization settings under
-<tt>OS Configuration &gt; Manage &gt; System Time</tt>. The platform should
-be configured to use an organization-approved NTP server hostname.
-  </td>
-  <td xml:lang="en-US">
-Accurate time synchronization supports reliable event ordering, audit
-analysis, and incident response across the CTD 4 appliance and connected
-management systems.
+Strong password policy requirements make it more difficult to
+compromise local credentials.
   </td>
   <td></td>
 </tr>
 <tr>
   <td></td>
   <td>N/A</td>
-  <td>Use a Trusted TLS Certificate for Claroty CTD 4</td>
+  <td>Claroty CTD must have disk encryption enabled on virtual machines (VMs).</td>
   <td xml:lang="en-US">
-Claroty CTD 4 provides certificate management under
-<tt>OS Configuration &gt; Manage &gt; Upload Certificate</tt>. The platform
-should use a site-approved TLS certificate for protected sessions.
+Claroty CTD deployments on virtual machines must enable disk
+encryption for the virtual storage used by the appliance.
   </td>
   <td xml:lang="en-US">
-Using an approved TLS certificate helps users validate the identity of the
-CTD 4 appliance and protects administrative sessions against interception
-and spoofing.
+Disk encryption protects sensitive data at rest from unauthorized
+disclosure if the underlying storage is exposed.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Claroty CTD must display the Standard Mandatory DOD Notice and Consent Banner before granting local or remote access to the system.</td>
+  <td xml:lang="en-US">
+Claroty CTD must display the Standard Mandatory DoD Notice and
+Consent Banner before granting system access.
+  </td>
+  <td xml:lang="en-US">
+Required notice and consent language establishes user awareness and
+supports authorized monitoring.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>The publicly accessible Claroty CTD application must display the Standard Mandatory DOD Notice and Consent Banner before granting access to Claroty CTD.</td>
+  <td xml:lang="en-US">
+The Claroty CTD web application must display the Standard Mandatory
+DoD Notice and Consent Banner before granting access.
+  </td>
+  <td xml:lang="en-US">
+A pre-access banner ensures users are informed of monitoring and
+consent requirements before using the web application.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Claroty CTD must configure idle timeouts at 10 minutes.</td>
+  <td xml:lang="en-US">
+Claroty CTD must terminate or lock idle administrative sessions
+after 10 minutes of inactivity.
+  </td>
+  <td xml:lang="en-US">
+Short idle timeouts reduce the risk of unauthorized use of an
+unattended session.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Claroty CTD must have notification and audit services operational.</td>
+  <td xml:lang="en-US">
+Claroty CTD must maintain operational notification and audit
+services to support monitoring and accountability.
+  </td>
+  <td xml:lang="en-US">
+Notification and audit services are necessary to detect, record,
+and respond to security-relevant events.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Claroty CTD must notify system administrators and information system security officer (ISSO) of local account activity.</td>
+  <td xml:lang="en-US">
+Claroty CTD must notify designated administrators and the ISSO of
+local account activity.
+  </td>
+  <td xml:lang="en-US">
+Notification of local account activity helps identify unauthorized
+account creation and misuse.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Claroty CTD must only allow the use of DOD PKI established certificate authorities for verification of the establishment of protected sessions.</td>
+  <td xml:lang="en-US">
+Claroty CTD must use only DoD PKI-established certificate
+authorities for protected session verification where required.
+  </td>
+  <td xml:lang="en-US">
+Restricting trust to approved certificate authorities reduces the
+risk of accepting untrusted identities for protected sessions.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Claroty CTD must allow only the individuals appointed by the information system security manager (ISSM) to have full admin rights to the system.</td>
+  <td xml:lang="en-US">
+Claroty CTD must restrict full administrative rights to
+ISSM-authorized individuals only.
+  </td>
+  <td xml:lang="en-US">
+Limiting full administrative rights reduces the chance of
+unauthorized changes to auditing and system security settings.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Claroty CTD must limit privileges and restrict administrative shell access.</td>
+  <td xml:lang="en-US">
+Claroty CTD must restrict administrative shell access and limit
+privileges to only those functions required by authorized users.
+  </td>
+  <td xml:lang="en-US">
+Restricting shell access and privilege escalation reduces the risk
+of unauthorized changes to the platform.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Claroty CTD must be configured to send backup audit records.</td>
+  <td xml:lang="en-US">
+Claroty CTD must be configured to preserve or send backup copies of
+audit records.
+  </td>
+  <td xml:lang="en-US">
+Backup audit records support recovery, forensic review, and the
+continued availability of security evidence.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>The Claroty CTD Syslog client must use TCP connections.</td>
+  <td xml:lang="en-US">
+The Claroty CTD syslog client must use TCP for remote log transport.
+  </td>
+  <td xml:lang="en-US">
+TCP supports more reliable delivery for remote log forwarding than
+connectionless transports.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Claroty CTD must use FIPS-validated encryption and hashing algorithms to protect the confidentiality and integrity of application configuration files and user-generated data stored or aggregated on the device.</td>
+  <td xml:lang="en-US">
+Claroty CTD must use FIPS-validated encryption and hashing
+algorithms to protect configuration files and user-generated data
+stored on the device.
+  </td>
+  <td xml:lang="en-US">
+FIPS-validated cryptography supports the confidentiality and
+integrity of sensitive data stored by the platform.
+  </td>
+  <td></td>
+</tr>
+<tr>
+  <td></td>
+  <td>N/A</td>
+  <td>Claroty CTD must use an Identity Provider (IDP) for authentication and authorization processes.</td>
+  <td xml:lang="en-US">
+Claroty CTD must integrate with an approved identity provider for
+authentication and authorization processes.
+  </td>
+  <td xml:lang="en-US">
+Centralized identity management improves account lifecycle control
+and reduces administrative error.
   </td>
   <td></td>
 </tr>
@@ -5739,19 +5904,15 @@ messages to unauthorized personnel or their designated representatives.
   <td>N/A</td>
   <td>Verify Group Who Owns the system journal</td>
   <td xml:lang="en-US">
-Verify the /run/log/journal and /var/log/journal files are group-owned by
-"systemd-journal" by using the following command:
-<pre>
-$ sudo find /run/log/journal /var/log/journal  -type f -exec stat -c "%n %G" {} \;
-</pre>
-If any output returned is not group-owned by "systemd-journal", this is a finding.
+'
+To properly set the group owner of <code>/var/log/journal/.*/system.journal</code>, run the command:
+
+  <pre>$ sudo chgrp systemd-journal /var/log/journal/.*/system.journal</pre>
+  
+'
   </td>
   <td xml:lang="en-US">
-Only authorized personnel should be aware of errors and the details of the errors.
-Error messages are an indicator of an organization's operational state or can
-identify the operating system or platform. Additionally, personally identifiable
-information (PII) and operational information must not be revealed through error
-messages to unauthorized personnel or their designated representatives.
+RHCOS must protect system journal file from any type of unauthorized access by setting file group ownership.
   </td>
   <td></td>
 </tr>
@@ -5781,19 +5942,15 @@ messages to unauthorized personnel or their designated representatives.
   <td>N/A</td>
   <td>Verify Owner on the system journal</td>
   <td xml:lang="en-US">
-Verify the /run/log/journal and /var/log/journal files are owned by
-"root" by using the following command:
-<pre>
-$ sudo find /run/log/journal /var/log/journal  -type f -exec stat -c "%n %U" {} \;
-</pre>
-If any output returned is not owned by "root", this is a finding.
+'
+To properly set the owner of <code>/var/log/journal/.*/system.journal</code>, run the command:
+
+  <pre>$ sudo chown root /var/log/journal/.*/system.journal </pre>
+  
+'
   </td>
   <td xml:lang="en-US">
-Only authorized personnel should be aware of errors and the details of the errors.
-Error messages are an indicator of an organization's operational state or can
-identify the operating system or platform. Additionally, personally identifiable
-information (PII) and operational information must not be revealed through error
-messages to unauthorized personnel or their designated representatives.
+RHCOS must protect system  journal file from any type of unauthorized access by setting file ownership
   </td>
   <td></td>
 </tr>
@@ -5840,17 +5997,12 @@ needs to be carefully considered by the organization.
   <td>N/A</td>
   <td>Verify Permissions on the system journal</td>
   <td xml:lang="en-US">
-Verify all files in the /run/log/journal and /var/log/journal directories have
-permissions set to "640" or less permissive by using the following command:
-<pre>
-$ sudo find /run/log/journal /var/log/journal  -type f -exec stat -c "%n %a" {} \;
-</pre>
-If any output returned has a permission set greater than "640", this is a finding.
+
+To properly set the permissions of <code>/var/log/journal/.*/system.journal</code>, run the command:
+<pre>$ sudo chmod 0640 /var/log/journal/.*/system.journal</pre>
   </td>
   <td xml:lang="en-US">
-Any operating system providing too much information in error messages risks
-compromising the data and security of the structure, and content of error messages
-needs to be carefully considered by the organization.
+RHCOS must protect system  journal file from any type of unauthorized access by setting file permissions.
   </td>
   <td></td>
 </tr>
