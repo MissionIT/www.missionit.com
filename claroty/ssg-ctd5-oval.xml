@@ -4,14 +4,14 @@
     <oval:product_name>OVALFileLinker from SCAP Security Guide</oval:product_name>
     <oval:product_version>ssg: [0, 1, 81], python: 3.14.3</oval:product_version>
     <oval:schema_version>5.11.2</oval:schema_version>
-    <oval:timestamp>2026-04-01T19:47:10</oval:timestamp>
+    <oval:timestamp>2026-04-01T19:55:38</oval:timestamp>
   </oval-def:generator>
   <oval-def:definitions>
     <oval-def:definition id="oval:ssg-auditd_audispd_configure_remote_server:def:1" version="1" class="compliance">
       <oval-def:metadata>
         <oval-def:title>Configure audispd Plugin To Send Logs To Remote Server</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="auditd_audispd_configure_remote_server" source="ssg" />
         <oval-def:description>remote_server setting in /etc/audit/audisp-remote.conf is set to a certain IP address or hostname</oval-def:description>
@@ -24,7 +24,7 @@
       <oval-def:metadata>
         <oval-def:title>Configure auditd Disk Full Action when Disk Space Is Full</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="auditd_data_disk_full_action" source="ssg" />
         <oval-def:description>disk_full_action setting in /etc/audit/auditd.conf is set to a certain action</oval-def:description>
@@ -37,7 +37,7 @@
       <oval-def:metadata>
         <oval-def:title>Configure auditd mail_acct Action on Low Disk Space</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="auditd_data_retention_action_mail_acct" source="ssg" />
         <oval-def:description>action_mail_acct setting in /etc/audit/auditd.conf is set to a certain account</oval-def:description>
@@ -50,7 +50,7 @@
       <oval-def:metadata>
         <oval-def:title>Configure auditd space_left Action on Low Disk Space</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="auditd_data_retention_space_left_action" source="ssg" />
         <oval-def:description>space_left_action setting in /etc/audit/auditd.conf is set to a certain action</oval-def:description>
@@ -63,7 +63,7 @@
       <oval-def:metadata>
         <oval-def:title>Configure auditd space_left on Low Disk Space</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="auditd_data_retention_space_left_percentage" source="ssg" />
         <oval-def:description>space_left setting in /etc/audit/auditd.conf is set to at least a certain value</oval-def:description>
@@ -76,7 +76,7 @@
       <oval-def:metadata>
         <oval-def:title>Offload audit Logs to External Media</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="auditd_offload_logs" source="ssg" />
         <oval-def:description>Check if a script for audit offload exists in /etc/cron.weekly/</oval-def:description>
@@ -89,7 +89,7 @@
       <oval-def:metadata>
         <oval-def:title>Disable unauthenticated repositories in APT configuration</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="apt_conf_disallow_unauthenticated" source="ssg" />
         <oval-def:description>Accessing a repository should be allowed only when the repository is authenticated.</oval-def:description>
@@ -102,7 +102,7 @@
       <oval-def:metadata>
         <oval-def:title>Configure Time Service Maxpoll Interval</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="chronyd_or_ntpd_set_maxpoll" source="ssg" />
         <oval-def:description>Configure the maxpoll setting in /etc/ntp.conf or chrony.conf
@@ -123,7 +123,7 @@
       <oval-def:metadata>
         <oval-def:title>Certificate trust path in SSSD</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sssd_certification_path_trust_anchor" source="ssg" />
         <oval-def:description>SSSD should be configured with trust path to an accepted trust anchor.</oval-def:description>
@@ -136,7 +136,7 @@
       <oval-def:metadata>
         <oval-def:title>Configure PAM in SSSD Services</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sssd_enable_pam_services" source="ssg" />
         <oval-def:description>SSSD should be configured to run SSSD PAM services.
@@ -150,7 +150,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable Smartcards in SSSD</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sssd_enable_smartcards" source="ssg" />
         <oval-def:description>SSSD should be configured to authenticate access to the system
@@ -164,7 +164,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable Certificates Mapping in SSSD</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sssd_enable_user_cert" source="ssg" />
         <oval-def:description>SSSD should be configured to map the certificate to
@@ -178,7 +178,7 @@
       <oval-def:metadata>
         <oval-def:title>Configure SSSD to Expire Offline Credentials</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sssd_offline_cred_expiration" source="ssg" />
         <oval-def:description>SSSD should be configured to expire offline credentials after 1 day.</oval-def:description>
@@ -191,7 +191,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable authselect</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="enable_authselect" source="ssg" />
         <oval-def:description>Check that authselect is enabled</oval-def:description>
@@ -208,7 +208,7 @@
       <oval-def:metadata>
         <oval-def:title>Modify the System Login Banner for Remote Connections</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="banner_etc_issue_net" source="ssg" />
         <oval-def:description>The system login banner text should be set correctly.</oval-def:description>
@@ -221,7 +221,7 @@
       <oval-def:metadata>
         <oval-def:title>Account Lockouts Must Be Logged</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="accounts_passwords_pam_faillock_audit" source="ssg" />
         <oval-def:description>Account Lockouts Must Be Logged</oval-def:description>
@@ -243,7 +243,7 @@
       <oval-def:metadata>
         <oval-def:title>Do Not Show System Messages When Unsuccessful Logon Attempts Occur</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="accounts_passwords_pam_faillock_silent" source="ssg" />
         <oval-def:description>Prevent System Messages When Three Unsuccessful Logon Attempts Occur</oval-def:description>
@@ -265,7 +265,7 @@
       <oval-def:metadata>
         <oval-def:title>Ensure PAM Enforces Password Requirements - Authentication Retry Prompts Permitted Per-Session</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="accounts_password_pam_retry" source="ssg" />
         <oval-def:description>The password retry should meet minimum requirements</oval-def:description>
@@ -287,7 +287,7 @@
       <oval-def:metadata>
         <oval-def:title>Set Password Hashing Algorithm for PAM</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="set_password_hashing_algorithm_auth_stig" source="ssg" />
         <oval-def:description>The password hashing algorithm should be set correctly in {{{ pam_file }}}.</oval-def:description>
@@ -300,7 +300,7 @@
       <oval-def:metadata>
         <oval-def:title>Set Password Hashing Algorithm in /etc/login.defs</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="set_password_hashing_algorithm_logindefs" source="ssg" />
         <oval-def:description>The password hashing algorithm should be set correctly in /usr/etc/login.defs.</oval-def:description>
@@ -313,7 +313,7 @@
       <oval-def:metadata>
         <oval-def:title>Disable Ctrl-Alt-Del Reboot Activation</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="disable_ctrlaltdel_reboot" source="ssg" />
         <oval-def:description>By default, the system will reboot when the
@@ -327,7 +327,7 @@
       <oval-def:metadata>
         <oval-def:title>Set Account Expiration Following Inactivity</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="account_disable_post_pw_expiration" source="ssg" />
         <oval-def:description>The accounts should be configured to expire automatically following password expiration.</oval-def:description>
@@ -340,7 +340,7 @@
       <oval-def:metadata>
         <oval-def:title>Set Password Maximum Age</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="accounts_maximum_age_login_defs" source="ssg" />
         <oval-def:description>The maximum password age policy should meet minimum requirements.</oval-def:description>
@@ -353,7 +353,7 @@
       <oval-def:metadata>
         <oval-def:title>Set Password Minimum Age</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="accounts_minimum_age_login_defs" source="ssg" />
         <oval-def:description>The minimum password age policy should be set appropriately.</oval-def:description>
@@ -366,7 +366,7 @@
       <oval-def:metadata>
         <oval-def:title>Set number of Password Hashing Rounds - password-auth</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="accounts_password_pam_unix_rounds_password_auth" source="ssg" />
         <oval-def:description>The number of rounds for password hashing should be set correctly.</oval-def:description>
@@ -379,7 +379,7 @@
       <oval-def:metadata>
         <oval-def:title>Prevent Login to Accounts With Empty Password</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="no_empty_passwords" source="ssg" />
         <oval-def:description>The file /etc/pam.d/system-auth should not contain the nullok option</oval-def:description>
@@ -392,7 +392,7 @@
       <oval-def:metadata>
         <oval-def:title>Ensure There Are No Accounts With Blank or Null Passwords</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="no_empty_passwords_etc_shadow" source="ssg" />
         <oval-def:description>The file /etc/shadow shows that there aren't empty passwords</oval-def:description>
@@ -405,7 +405,7 @@
       <oval-def:metadata>
         <oval-def:title>Direct root Logins Are Not Allowed</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="prevent_direct_root_logins" source="ssg" />
         <oval-def:description>Direct root Logins Are Not Allowed</oval-def:description>
@@ -418,7 +418,7 @@
       <oval-def:metadata>
         <oval-def:title>Limit the Number of Concurrent Login Sessions Allowed Per User</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="accounts_max_concurrent_login_sessions" source="ssg" />
         <oval-def:description>The maximum number of concurrent login sessions per user should meet
@@ -436,7 +436,7 @@
       <oval-def:metadata>
         <oval-def:title>Set Interactive Session Timeout</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="accounts_tmout" source="ssg" />
         <oval-def:description>Checks interactive shell timeout</oval-def:description>
@@ -452,7 +452,7 @@
       <oval-def:metadata>
         <oval-def:title>Set Boot Loader Password in grub2</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="grub2_password" source="ssg" />
         <oval-def:description>The grub2 boot loader should have password protection enabled.</oval-def:description>
@@ -471,7 +471,7 @@
       <oval-def:metadata>
         <oval-def:title>Set the UEFI Boot Loader Password</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="grub2_uefi_password" source="ssg" />
         <oval-def:description>The UEFI grub2 boot loader should have password protection enabled.</oval-def:description>
@@ -484,7 +484,7 @@
       <oval-def:metadata>
         <oval-def:title>Ensure real-time clock is set to UTC</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="ensure_rtc_utc_configuration" source="ssg" />
         <oval-def:description>Ensure RTC is using UTC as its time base</oval-def:description>
@@ -497,7 +497,7 @@
       <oval-def:metadata>
         <oval-def:title>Ensure remote access methods are monitored in Rsyslog</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="rsyslog_remote_access_monitoring" source="ssg" />
         <oval-def:description>Rsyslog should be configured to monitor remote access methods.</oval-def:description>
@@ -512,7 +512,7 @@
       <oval-def:metadata>
         <oval-def:title>Deactivate Wireless Network Interfaces</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="wireless_disable_interfaces" source="ssg" />
         <oval-def:description>All wireless interfaces should be disabled.</oval-def:description>
@@ -525,7 +525,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that All World-Writable Directories Have Sticky Bits Set</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="dir_perms_world_writable_sticky_bits" source="ssg" />
         <oval-def:description>The sticky bit should be set for all world-writable directories.</oval-def:description>
@@ -538,7 +538,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that system commands files are group owned by root or a system account</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_groupownership_system_commands_dirs" source="ssg" />
         <oval-def:description>
@@ -554,7 +554,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that System Executables Have Root Ownership</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_ownership_binary_dirs" source="ssg" />
         <oval-def:description>
@@ -571,7 +571,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that System Executables Have Restrictive Permissions</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_permissions_binary_dirs" source="ssg" />
         <oval-def:description>
@@ -587,7 +587,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable NX or XD Support in the BIOS</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="bios_enable_execution_restrictions" source="ssg" />
         <oval-def:description>The NX (no-execution) bit flag should be set on the system.</oval-def:description>
@@ -601,7 +601,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify '/proc/sys/crypto/fips_enabled' exists</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="is_fips_mode_enabled" source="ssg" />
         <oval-def:description>Inspect the contents of /proc/sys/crypto/fips_enabled</oval-def:description>
@@ -614,7 +614,7 @@
       <oval-def:metadata>
         <oval-def:title>Ensure Users Re-Authenticate for Privilege Escalation - sudo !authenticate</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sudo_remove_no_authenticate" source="ssg" />
         <oval-def:description>Checks sudo usage without authentication</oval-def:description>
@@ -628,7 +628,7 @@
       <oval-def:metadata>
         <oval-def:title>Ensure Users Re-Authenticate for Privilege Escalation - sudo NOPASSWD</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sudo_remove_nopasswd" source="ssg" />
         <oval-def:description>Checks sudo usage without password</oval-def:description>
@@ -642,7 +642,7 @@
       <oval-def:metadata>
         <oval-def:title>The operating system must restrict privilege elevation to authorized personnel</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sudo_restrict_privilege_elevation_to_authorized" source="ssg" />
         <oval-def:description>Check that sudoers doesn't allow all users to run commands via sudo</oval-def:description>
@@ -656,7 +656,7 @@
       <oval-def:metadata>
         <oval-def:title>Ensure apt_get Removes Previous Package Versions</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="clean_components_post_updating" source="ssg" />
         <oval-def:description>The clean_requirements_on_remove option should be used to ensure that old
@@ -670,7 +670,7 @@
       <oval-def:metadata>
         <oval-def:title>Ensure PAM Enforces Password Requirements - Enforcing</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="accounts_password_pam_enforcing" source="ssg" />
         <oval-def:description>Check presence of enforcing = 1 in /etc/security/pwquality.conf</oval-def:description>
@@ -683,7 +683,7 @@
       <oval-def:metadata>
         <oval-def:title>Enforce Delay After Failed Logon Attempts</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="accounts_passwords_pam_faildelay_delay" source="ssg" />
         <oval-def:description>Configure PAM module</oval-def:description>
@@ -696,7 +696,7 @@
       <oval-def:metadata>
         <oval-def:title>Lock Accounts After Failed Password Attempts</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="accounts_passwords_pam_faillock_deny" source="ssg" />
         <oval-def:description>Lockout account after failed login attempts.</oval-def:description>
@@ -732,7 +732,7 @@
       <oval-def:metadata>
         <oval-def:title>Set Interval For Counting Failed Password Attempts</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="accounts_passwords_pam_faillock_interval" source="ssg" />
         <oval-def:description>The number of allowed failed logins should be set correctly.</oval-def:description>
@@ -768,7 +768,7 @@
       <oval-def:metadata>
         <oval-def:title>Set Lockout Time for Failed Password Attempts</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="accounts_passwords_pam_faillock_unlock_time" source="ssg" />
         <oval-def:description>The unlock time after number of failed logins should be set correctly.</oval-def:description>
@@ -804,7 +804,7 @@
       <oval-def:metadata>
         <oval-def:title>Configure AIDE To Notify Personnel if Baseline Configurations Are Altered</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="aide_disable_silentreports" source="ssg" />
         <oval-def:description>Ensure 'SILENTREPORTS' is configured with value 'no' in /etc/default/aide</oval-def:description>
@@ -820,7 +820,7 @@
       <oval-def:metadata>
         <oval-def:title>Ensure AppArmor is Active and Configured</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="apparmor_configured" source="ssg" />
         <oval-def:description>The apparmor service should be enabled if possible.</oval-def:description>
@@ -840,7 +840,7 @@
       <oval-def:metadata>
         <oval-def:title>Synchronize internal information system clocks</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="chronyd_sync_clock" source="ssg" />
         <oval-def:description>Ensure 'makestep' is configured with value '1 -1' in /etc/chrony/chrony.conf</oval-def:description>
@@ -856,7 +856,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that Shared Library Directories Have Root Group Ownership</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="dir_group_ownership_library_dirs" source="ssg" />
         <oval-def:description>This test makes sure that /lib/, /lib64/, /usr/lib/, /usr/lib64/ is group owned by 0.</oval-def:description>
@@ -872,7 +872,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify group-owner of system journal directories</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="dir_groupowner_system_journal" source="ssg" />
         <oval-def:description>This test makes sure that /run/log/journal/, /var/log/journal/ is group owned by systemd-journal.</oval-def:description>
@@ -886,7 +886,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that system commands directories are group owned by root</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="dir_groupownership_binary_dirs" source="ssg" />
         <oval-def:description>This test makes sure that /bin/, /sbin/, /usr/bin/, /usr/sbin/, /usr/local/bin/, /usr/local/sbin/ is group owned by 0.</oval-def:description>
@@ -904,7 +904,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify owner of system journal directories</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="dir_owner_system_journal" source="ssg" />
         <oval-def:description>This test makes sure that /run/log/journal/, /var/log/journal/ is owned by 0.</oval-def:description>
@@ -918,7 +918,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that System Executable Have Root Ownership</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="dir_ownership_binary_dirs" source="ssg" />
         <oval-def:description>This test makes sure that /bin/, /sbin/, /usr/bin/, /usr/sbin/, /usr/local/bin/, /usr/local/sbin/ is owned by 0.</oval-def:description>
@@ -936,7 +936,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that Shared Library Directories Have Root Ownership</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="dir_ownership_library_dirs" source="ssg" />
         <oval-def:description>This test makes sure that /lib/, /lib64/, /usr/lib/, /usr/lib64/ is owned by 0.</oval-def:description>
@@ -952,7 +952,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that System Executable Directories Have Restrictive Permissions</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="dir_permissions_binary_dirs" source="ssg" />
         <oval-def:description>This test makes sure that /bin/, /sbin/, /usr/bin/, /usr/sbin/, /usr/local/bin/, /usr/local/sbin/ has mode 0755.
@@ -972,7 +972,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Permissions on the system journal directories</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="dir_permissions_system_journal" source="ssg" />
         <oval-def:description>This test makes sure that /run/log/journal/, /var/log/journal/ has mode 2750.
@@ -988,7 +988,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Groupowner on the journalctl command</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_groupowner_journalctl" source="ssg" />
         <oval-def:description>This test makes sure that /usr/bin/journalctl is group owned by 0.</oval-def:description>
@@ -1001,7 +1001,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Group Who Owns the system journal</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_groupowner_system_journal" source="ssg" />
         <oval-def:description>This test makes sure that ^/var/log/journal/.*/system.journal$ is group owned by systemd-journal.</oval-def:description>
@@ -1014,7 +1014,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Group Who Owns /var/log Directory</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_groupowner_var_log" source="ssg" />
         <oval-def:description>This test makes sure that /var/log/ is group owned by 0.</oval-def:description>
@@ -1027,7 +1027,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Group Who Owns /var/log/syslog File</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_groupowner_var_log_syslog" source="ssg" />
         <oval-def:description>This test makes sure that /var/log/syslog is group owned by 4.</oval-def:description>
@@ -1040,7 +1040,7 @@
       <oval-def:metadata>
         <oval-def:title>Audit Configuration Files Must Be Owned By Group root</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_groupownership_audit_configuration" source="ssg" />
         <oval-def:description>This test makes sure that /etc/audit/, /etc/audit/rules.d/ is group owned by 0.</oval-def:description>
@@ -1054,7 +1054,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Owner on the journalctl Command</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_owner_journalctl" source="ssg" />
         <oval-def:description>This test makes sure that /usr/bin/journalctl is owned by 0.</oval-def:description>
@@ -1067,7 +1067,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Owner on the system journal</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_owner_system_journal" source="ssg" />
         <oval-def:description>This test makes sure that ^/var/log/journal/.*/system.journal$ is owned by 0.</oval-def:description>
@@ -1080,7 +1080,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify User Who Owns /var/log Directory</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_owner_var_log" source="ssg" />
         <oval-def:description>This test makes sure that /var/log/ is owned by 0.</oval-def:description>
@@ -1093,7 +1093,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify User Who Owns /var/log/syslog File</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_owner_var_log_syslog" source="ssg" />
         <oval-def:description>This test makes sure that /var/log/syslog is owned by syslog.</oval-def:description>
@@ -1106,7 +1106,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that audit tools are owned by root</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_ownership_audit_binaries" source="ssg" />
         <oval-def:description>This test makes sure that /sbin/auditctl, /sbin/aureport, /sbin/ausearch, /sbin/autrace, /sbin/auditd, /sbin/audispd, /sbin/augenrules is owned by 0.</oval-def:description>
@@ -1125,7 +1125,7 @@
       <oval-def:metadata>
         <oval-def:title>Audit Configuration Files Must Be Owned By Root</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_ownership_audit_configuration" source="ssg" />
         <oval-def:description>This test makes sure that /etc/audit/, /etc/audit/rules.d/ is owned by 0.</oval-def:description>
@@ -1139,7 +1139,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that Shared Library Files Have Root Ownership</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_ownership_library_dirs" source="ssg" />
         <oval-def:description>This test makes sure that /lib/, /lib64/, /usr/lib/, /usr/lib64/ is owned by 0.</oval-def:description>
@@ -1155,7 +1155,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that audit tools Have Mode 0755 or less</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_permissions_audit_binaries" source="ssg" />
         <oval-def:description>This test makes sure that /sbin/auditctl, /sbin/aureport, /sbin/ausearch, /sbin/autrace, /sbin/auditd, /sbin/audispd, /sbin/augenrules has mode 0755.
@@ -1176,7 +1176,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Permissions on /etc/audit/auditd.conf</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_permissions_etc_audit_auditd" source="ssg" />
         <oval-def:description>This test makes sure that /etc/audit/auditd.conf has mode 0640.
@@ -1191,7 +1191,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Permissions on /etc/audit/audit.rules</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_permissions_etc_audit_rules" source="ssg" />
         <oval-def:description>This test makes sure that /etc/audit/audit.rules has mode 0640.
@@ -1206,7 +1206,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Permissions on /etc/audit/rules.d/*.rules</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_permissions_etc_audit_rulesd" source="ssg" />
         <oval-def:description>This test makes sure that /etc/audit/rules.d/ has mode 0600.
@@ -1221,7 +1221,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Permissions on the journal command</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_permissions_journalctl" source="ssg" />
         <oval-def:description>This test makes sure that /usr/bin/journalctl has mode 0740.
@@ -1236,7 +1236,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that Shared Library Files Have Restrictive Permissions</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_permissions_library_dirs" source="ssg" />
         <oval-def:description>This test makes sure that /lib/, /lib64/, /usr/lib/, /usr/lib64/ has mode 7755.
@@ -1254,7 +1254,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Permissions on the system journal</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_permissions_system_journal" source="ssg" />
         <oval-def:description>This test makes sure that ^/var/log/journal/.*/system.journal$ has mode 0640.
@@ -1269,7 +1269,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Permissions on /var/log Directory</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_permissions_var_log" source="ssg" />
         <oval-def:description>This test makes sure that /var/log/ has mode 0755.
@@ -1284,7 +1284,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify Permissions on /var/log/syslog File</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="file_permissions_var_log_syslog" source="ssg" />
         <oval-def:description>This test makes sure that /var/log/syslog has mode 0640.
@@ -1299,7 +1299,7 @@
       <oval-def:metadata>
         <oval-def:title>Disable Modprobe Loading of USB Storage Driver</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="kernel_module_usb-storage_disabled" source="ssg" />
         <oval-def:description>The kernel module usb-storage should be disabled.</oval-def:description>
@@ -1313,7 +1313,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify permissions of log files</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="permissions_local_var_log" source="ssg" />
         <oval-def:description>This test makes sure that /var/log/ has mode 0640.
@@ -1329,7 +1329,7 @@
         <oval-def:title>Verify the system-wide library files in directories
 "/lib", "/lib64", "/usr/lib/" and "/usr/lib64" are group-owned by root.</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="root_permissions_syslibrary_files" source="ssg" />
         <oval-def:description>This test makes sure that /lib/, /lib64/, /usr/lib/, /usr/lib64/ is group owned by 0.</oval-def:description>
@@ -1345,7 +1345,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable auditd Service</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="service_auditd_enabled" source="ssg" />
         <oval-def:description>The auditd service should be enabled if possible.</oval-def:description>
@@ -1365,7 +1365,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable rsyslog Service</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="service_rsyslog_enabled" source="ssg" />
         <oval-def:description>The rsyslog service should be enabled if possible.</oval-def:description>
@@ -1385,7 +1385,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable the OpenSSH Service</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="service_sshd_enabled" source="ssg" />
         <oval-def:description>The sshd service should be enabled if possible.</oval-def:description>
@@ -1405,7 +1405,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable the SSSD Service</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="service_sssd_enabled" source="ssg" />
         <oval-def:description>The sssd service should be enabled if possible.</oval-def:description>
@@ -1425,7 +1425,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify ufw Enabled</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="service_ufw_enabled" source="ssg" />
         <oval-def:description>The ufw service should be enabled if possible.</oval-def:description>
@@ -1445,7 +1445,7 @@
       <oval-def:metadata>
         <oval-def:title>Restrict Access to Kernel Message Buffer</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sysctl_kernel_dmesg_restrict" source="ssg" />
         <oval-def:description>The 'kernel.dmesg_restrict' kernel parameter should be set to the appropriate value in system configuration and system runtime.</oval-def:description>
@@ -1459,7 +1459,7 @@
       <oval-def:metadata>
         <oval-def:title>Restrict Access to Kernel Message Buffer</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sysctl_kernel_dmesg_restrict_runtime" source="ssg" />
         <oval-def:description>The kernel 'kernel.dmesg_restrict' parameter should be set to 1 in the system runtime.</oval-def:description>
@@ -1472,7 +1472,7 @@
       <oval-def:metadata>
         <oval-def:title>Restrict Access to Kernel Message Buffer</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sysctl_kernel_dmesg_restrict_static" source="ssg" />
         <oval-def:description>The kernel 'kernel.dmesg_restrict' parameter should be set to 1 in the system configuration.</oval-def:description>
@@ -1489,7 +1489,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable Randomized Layout of Virtual Address Space</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sysctl_kernel_randomize_va_space" source="ssg" />
         <oval-def:description>The 'kernel.randomize_va_space' kernel parameter should be set to the appropriate value in system configuration and system runtime.</oval-def:description>
@@ -1503,7 +1503,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable Randomized Layout of Virtual Address Space</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sysctl_kernel_randomize_va_space_runtime" source="ssg" />
         <oval-def:description>The kernel 'kernel.randomize_va_space' parameter should be set to 2 in the system runtime.</oval-def:description>
@@ -1516,7 +1516,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable Randomized Layout of Virtual Address Space</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sysctl_kernel_randomize_va_space_static" source="ssg" />
         <oval-def:description>The kernel 'kernel.randomize_va_space' parameter should be set to 2 in the system configuration.</oval-def:description>
@@ -1533,7 +1533,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable Kernel Parameter to Use TCP Syncookies on Network Interfaces</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sysctl_net_ipv4_tcp_syncookies" source="ssg" />
         <oval-def:description>The 'net.ipv4.tcp_syncookies' kernel parameter should be set to the appropriate value in system configuration and system runtime.</oval-def:description>
@@ -1547,7 +1547,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable Kernel Parameter to Use TCP Syncookies on Network Interfaces</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sysctl_net_ipv4_tcp_syncookies_runtime" source="ssg" />
         <oval-def:description>The kernel 'net.ipv4.tcp_syncookies' parameter should be set to the appropriate value in the system runtime.</oval-def:description>
@@ -1560,7 +1560,7 @@
       <oval-def:metadata>
         <oval-def:title>Enable Kernel Parameter to Use TCP Syncookies on Network Interfaces</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="sysctl_net_ipv4_tcp_syncookies_static" source="ssg" />
         <oval-def:description>The kernel 'net.ipv4.tcp_syncookies' parameter should be set to the appropriate value in the system configuration.</oval-def:description>
@@ -1577,7 +1577,7 @@
       <oval-def:metadata>
         <oval-def:title>Verify that 'use_mappers' is set to 'pwent' in PAM</oval-def:title>
         <oval-def:affected family="unix">
-          <oval-def:platform>Claroty CTD 4</oval-def:platform>
+          <oval-def:platform>Claroty CTD 5.x</oval-def:platform>
         </oval-def:affected>
         <oval-def:reference ref_id="verify_use_mappers" source="ssg" />
         <oval-def:description>Check presence of use_mappers = pwent in /etc/pam_pkcs11/pam_pkcs11.conf</oval-def:description>
